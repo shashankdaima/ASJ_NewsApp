@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/baseline_settings_20"
+        android:title="Settings"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/notification"
+        android:icon="@drawable/baseline_notifications_24"
+        android:title="Nortication"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/baseline_search_20"
+        android:title="Search"
+        app:showAsAction="always" />
+</menu>
