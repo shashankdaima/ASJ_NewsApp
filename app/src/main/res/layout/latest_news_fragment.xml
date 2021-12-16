@@ -4,26 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".LatestNewsFragment"
+    tools:context=".ui.LatestNewsFragment"
     android:layoutDirection="rtl"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <!-- Note: A RecyclerView can also be used -->
-    <androidx.core.widget.NestedScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:layoutDirection="ltr"
-        android:paddingBottom="82dp">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
+            android:clipToPadding="false"
+            android:layoutDirection="ltr"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <include layout="@layout/news_recyclerview_element" />
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+            android:paddingBottom="82dp" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"

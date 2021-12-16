@@ -7,16 +7,15 @@
 
     <fragment
         android:id="@+id/latestNewsFragment"
-        android:name="com.example.androidstudyjam1.LatestNewsFragment"
-        android:label="latest_news_fragment"
-        tools:layout="@layout/latest_news_fragment" >
+        android:name="com.example.androidstudyjam1.ui.LatestNewsFragment"
+        android:label="Latest News"
+        tools:layout="@layout/latest_news_fragment">
         <action
             android:id="@+id/action_latestNewsFragment_to_webviewFragment"
             app:destination="@id/webviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/webviewFragment"
-        android:name="com.example.androidstudyjam1.WebviewFragment"
-        android:label="webview_fragment"
+        android:name="com.example.androidstudyjam1.ui.WebviewFragment"
         tools:layout="@layout/webview_fragment" />
 </navigation>

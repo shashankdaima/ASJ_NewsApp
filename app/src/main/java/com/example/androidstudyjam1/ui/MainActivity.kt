@@ -1,10 +1,11 @@
-package com.example.androidstudyjam1
+package com.example.androidstudyjam1.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.androidstudyjam1.R
 import com.example.androidstudyjam1.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
