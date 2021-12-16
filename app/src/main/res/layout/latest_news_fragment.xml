@@ -9,12 +9,13 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swiperefresh"
+        android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
+            android:id="@+id/all_new_recycler_view"
             android:clipToPadding="false"
             android:layoutDirection="ltr"
             android:layout_height="match_parent"

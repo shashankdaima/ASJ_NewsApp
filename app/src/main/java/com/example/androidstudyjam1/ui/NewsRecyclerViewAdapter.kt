@@ -8,12 +8,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.androidstudyjam1.databinding.NewsRecyclerviewElementBinding
 import com.example.androidstudyjam1.models.Article
 
-class NewsRecyclerViewAdapter :
+class NewsRecyclerViewAdapter(private val onClick: (Article) -> Unit) :
     ListAdapter<Article, NewsRecyclerViewAdapter.ViewHolder>(NewsDiffUtilComparator) {
-    inner class ViewHolder(binding: NewsRecyclerviewElementBinding) :
+    inner class ViewHolder(val binding: NewsRecyclerviewElementBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(article: Article) {
-
+            binding.time.text = article.publishedAt
+            binding.title.text = article.title
+            binding.description.text = article.description
+            binding.root.setOnClickListener {
+                onClick(article)
+            }
         }
     }
 

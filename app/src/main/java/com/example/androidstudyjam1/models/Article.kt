@@ -1,5 +1,4 @@
 package com.example.androidstudyjam1.models
-
 data class Article(
     val author: String,
     val content: String,
