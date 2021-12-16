@@ -4,11 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/bottom_nav_bar_radius.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/latest_news_fragment.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/latest_news_fragment.xml" value="0.23333333333333334" />
         <entry key="app/src/main/res/layout/news_recyclerview_element.xml" value="0.33" />
         <entry key="app/src/main/res/layout/webview_fragment.xml" value="0.33" />
         <entry key="app/src/main/res/menu/bottom_app_bar.xml" value="0.25" />
+        <entry key="app/src/main/res/menu/top_app_bar_menu.xml" value="0.2622798887859129" />
+        <entry key="app/src/main/res/xml/searchable.xml" value="0.1" />
       </map>
     </option>
   </component>

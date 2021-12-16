@@ -12,9 +12,5 @@
         android:title="Nortication"
         app:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/search"
-        android:icon="@drawable/baseline_search_20"
-        android:title="Search"
-        app:showAsAction="always" />
+
 </menu>
