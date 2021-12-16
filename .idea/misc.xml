@@ -7,7 +7,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/latest_news_fragment.xml" value="0.25" />
         <entry key="app/src/main/res/layout/news_recyclerview_element.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/webview_fragment.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/webview_fragment.xml" value="0.33" />
         <entry key="app/src/main/res/menu/bottom_app_bar.xml" value="0.25" />
       </map>
     </option>
