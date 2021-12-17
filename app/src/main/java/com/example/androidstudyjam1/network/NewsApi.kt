@@ -1,12 +1,18 @@
 package com.example.androidstudyjam1.network
 
-import com.example.androidstudyjam1.models.Response
+import com.example.androidstudyjam1.BuildConfig
+import com.example.androidstudyjam1.models.ApiResponse
 import retrofit2.http.GET
+import retrofit2.http.Headers
 
 interface NewsApi {
 
+    companion object {
+        const val API_KEY = BuildConfig.API_KEY
+    }
 
+    @Headers("X-Api-Key: $API_KEY")
     @GET("v2/top-headlines?country=in&pageSize=20")
-    suspend fun getLatestNews(): Response
+    suspend fun getLatestNews(): ApiResponse
 
 }

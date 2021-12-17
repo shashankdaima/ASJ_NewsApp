@@ -21,13 +21,16 @@ class LatestNewsFragment : Fragment(R.layout.latest_news_fragment) {
         super.onViewCreated(view, savedInstanceState)
         binding = LatestNewsFragmentBinding.bind(view)
         setHasOptionsMenu(true)
-        (activity as MainActivity).supportActionBar?.subtitle=null
-        adapter = NewsRecyclerViewAdapter{
+        (activity as MainActivity).supportActionBar?.subtitle = null
+        adapter = NewsRecyclerViewAdapter {
             findNavController().navigate(
                 LatestNewsFragmentDirections.actionLatestNewsFragmentToWebviewFragment(
                     it
                 )
             )
+        }
+        viewModel.list.observe(viewLifecycleOwner) {
+            adapter.submitList(it.articles)
         }
         binding.allNewRecyclerView.apply {
             adapter = this@LatestNewsFragment.adapter
@@ -63,7 +66,6 @@ class LatestNewsFragment : Fragment(R.layout.latest_news_fragment) {
                 urlToImage = ""
             ),
         )
-        adapter.submitList(list)
         binding.bottomAppBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.settings -> {
