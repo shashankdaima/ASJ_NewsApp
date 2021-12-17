@@ -17,5 +17,9 @@
     <fragment
         android:id="@+id/webviewFragment"
         android:name="com.example.androidstudyjam1.ui.WebviewFragment"
-        tools:layout="@layout/webview_fragment" />
+        tools:layout="@layout/webview_fragment" >
+        <argument
+            android:name="article"
+            app:argType="com.example.androidstudyjam1.models.Article" />
+    </fragment>
 </navigation>

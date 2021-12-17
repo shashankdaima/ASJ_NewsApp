@@ -5,6 +5,8 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidstudyjam1.R
 import com.example.androidstudyjam1.databinding.LatestNewsFragmentBinding
@@ -14,12 +16,18 @@ import com.example.androidstudyjam1.utils.ToastAndSnackbarExtFunctions.makeShort
 class LatestNewsFragment : Fragment(R.layout.latest_news_fragment) {
     private lateinit var adapter: NewsRecyclerViewAdapter
     private lateinit var binding: LatestNewsFragmentBinding
+    private val viewModel by activityViewModels<ActivityViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = LatestNewsFragmentBinding.bind(view)
         setHasOptionsMenu(true)
+        (activity as MainActivity).supportActionBar?.subtitle=null
         adapter = NewsRecyclerViewAdapter{
-            makeShortToast(it.url)
+            findNavController().navigate(
+                LatestNewsFragmentDirections.actionLatestNewsFragmentToWebviewFragment(
+                    it
+                )
+            )
         }
         binding.allNewRecyclerView.apply {
             adapter = this@LatestNewsFragment.adapter
