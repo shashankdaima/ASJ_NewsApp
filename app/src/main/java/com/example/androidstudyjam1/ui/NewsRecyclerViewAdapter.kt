@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.imageLoader
+import coil.load
 import com.example.androidstudyjam1.databinding.NewsRecyclerviewElementBinding
 import com.example.androidstudyjam1.models.Article
 
@@ -18,6 +20,10 @@ class NewsRecyclerViewAdapter(private val onClick: (Article) -> Unit) :
             binding.description.text = article.description
             binding.root.setOnClickListener {
                 onClick(article)
+            }
+            binding.image.apply {
+                load(article.urlToImage)
+
             }
         }
     }
