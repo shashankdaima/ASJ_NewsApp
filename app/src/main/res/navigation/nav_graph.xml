@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/latestNewsFragment"
-        android:name="com.example.androidstudyjam1.ui.LatestNewsFragment"
+        android:name="com.example.androidstudyjam1.ui.latest_news.LatestNewsFragment"
         android:label="Latest News"
         tools:layout="@layout/latest_news_fragment">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/webviewFragment"
-        android:name="com.example.androidstudyjam1.ui.WebviewFragment"
+        android:name="com.example.androidstudyjam1.ui.web_view.WebviewFragment"
         tools:layout="@layout/webview_fragment" >
         <argument
             android:name="article"

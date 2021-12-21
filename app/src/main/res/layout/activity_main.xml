@@ -19,6 +19,7 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/no_internet_ribbon"
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_red_dark"
             android:text="No Internet Found"

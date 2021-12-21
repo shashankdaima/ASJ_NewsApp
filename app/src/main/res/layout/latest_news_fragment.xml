@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.LatestNewsFragment"
+    tools:context=".ui.latest_news.LatestNewsFragment"
     android:layoutDirection="rtl"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 

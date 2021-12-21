@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.androidstudyjam1.R
 import com.example.androidstudyjam1.databinding.ActivityMainBinding
+import kotlinx.coroutines.flow.collect
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -23,14 +25,15 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         setSupportActionBar(binding.actionBar)
         setupActionBarWithNavController(navController)
-    }
-
-    fun hideNoInternetRibbon() {
-        binding.noInternetRibbon.visibility = View.GONE
-    }
-
-    fun showNoInternetRibbon() {
-        binding.noInternetRibbon.visibility = View.VISIBLE
+        lifecycleScope.launchWhenStarted {
+            viewModel.isOnlineStatus.collect {
+                if (it) {
+                    binding.noInternetRibbon.visibility = View.VISIBLE
+                } else {
+                    binding.noInternetRibbon.visibility = View.GONE
+                }
+            }
+        }
     }
 
 

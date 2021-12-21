@@ -1,4 +1,4 @@
-package com.example.androidstudyjam1.ui
+package com.example.androidstudyjam1.ui.web_view
 
 import android.os.Bundle
 import android.view.View
@@ -9,6 +9,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.example.androidstudyjam1.R
 import com.example.androidstudyjam1.databinding.WebviewFragmentBinding
+import com.example.androidstudyjam1.ui.ActivityViewModel
+import com.example.androidstudyjam1.ui.MainActivity
 
 class WebviewFragment : Fragment(R.layout.webview_fragment) {
     private val args by navArgs<WebviewFragmentArgs>()

@@ -1,4 +1,4 @@
-package com.example.androidstudyjam1.ui
+package com.example.androidstudyjam1.ui.latest_news
 
 import android.os.Bundle
 import android.view.Menu
@@ -6,11 +6,15 @@ import android.view.MenuInflater
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidstudyjam1.R
 import com.example.androidstudyjam1.databinding.LatestNewsFragmentBinding
+import com.example.androidstudyjam1.ui.ActivityViewModel
+import com.example.androidstudyjam1.ui.MainActivity
+import com.example.androidstudyjam1.ui.adapters.NewsRecyclerViewAdapter
 import com.example.androidstudyjam1.utils.ToastAndSnackbarExtFunctions.makeLongToast
 import com.example.androidstudyjam1.utils.ToastAndSnackbarExtFunctions.makeShortToast
 import kotlinx.coroutines.flow.collect
@@ -18,7 +22,8 @@ import kotlinx.coroutines.flow.collect
 class LatestNewsFragment : Fragment(R.layout.latest_news_fragment) {
     private lateinit var adapter: NewsRecyclerViewAdapter
     private lateinit var binding: LatestNewsFragmentBinding
-    private val viewModel by activityViewModels<ActivityViewModel>()
+    private val viewModel by viewModels<LatestNewsViewModel>()
+    private val activityViewModel by activityViewModels<ActivityViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = LatestNewsFragmentBinding.bind(view)
@@ -45,28 +50,29 @@ class LatestNewsFragment : Fragment(R.layout.latest_news_fragment) {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.event.collect {
                 when (it) {
-                    is ActivityViewModel.Event.ErrorResponse -> {
+                    is LatestNewsViewModel.Event.ErrorResponse -> {
                         makeLongToast(it.message)
-                        (activity as MainActivity).hideNoInternetRibbon()
+                        activityViewModel.setNetworkStatus(false)
                         binding.swipeRefresh.isRefreshing = false
 
                     }
-                    ActivityViewModel.Event.UnknownError -> {
-                        (activity as MainActivity).hideNoInternetRibbon()
+                    LatestNewsViewModel.Event.UnknownError -> {
+
+                        activityViewModel.setNetworkStatus(false)
                         makeShortToast("UnknownError")
                         binding.swipeRefresh.isRefreshing = false
 
                     }
-                    ActivityViewModel.Event.Loading -> {
-                        (activity as MainActivity).hideNoInternetRibbon()
+                    LatestNewsViewModel.Event.Loading -> {
+                        activityViewModel.setNetworkStatus(false)
                         binding.swipeRefresh.isRefreshing = true
                     }
-                    ActivityViewModel.Event.InternetError -> {
-                        (activity as MainActivity).showNoInternetRibbon()
+                    LatestNewsViewModel.Event.InternetError -> {
+                        activityViewModel.setNetworkStatus(true)
                         binding.swipeRefresh.isRefreshing = false
                     }
-                    ActivityViewModel.Event.NoError -> {
-                        (activity as MainActivity).hideNoInternetRibbon()
+                    LatestNewsViewModel.Event.NoError -> {
+                        activityViewModel.setNetworkStatus(false)
                         binding.swipeRefresh.isRefreshing = false
                     }
                 }

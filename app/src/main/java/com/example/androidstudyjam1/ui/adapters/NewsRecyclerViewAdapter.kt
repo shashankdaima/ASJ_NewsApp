@@ -1,12 +1,10 @@
-package com.example.androidstudyjam1.ui
+package com.example.androidstudyjam1.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.imageLoader
-import coil.load
 import com.example.androidstudyjam1.databinding.NewsRecyclerviewElementBinding
 import com.example.androidstudyjam1.models.Article
 
