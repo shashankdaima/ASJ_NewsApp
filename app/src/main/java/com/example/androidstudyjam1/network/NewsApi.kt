@@ -1,7 +1,7 @@
 package com.example.androidstudyjam1.network
 
 import com.example.androidstudyjam1.BuildConfig
-import com.example.androidstudyjam1.models.ApiResponse
+import com.example.androidstudyjam1.models.SuccessModel
 import retrofit2.http.GET
 import retrofit2.http.Headers
 
@@ -13,6 +13,6 @@ interface NewsApi {
 
     @Headers("X-Api-Key: $API_KEY")
     @GET("v2/top-headlines?country=in&pageSize=20")
-    suspend fun getLatestNews(): ApiResponse
+    suspend fun getLatestNews(): SuccessModel
 
 }

@@ -6,12 +6,14 @@ import android.view.MenuInflater
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidstudyjam1.R
 import com.example.androidstudyjam1.databinding.LatestNewsFragmentBinding
-import com.example.androidstudyjam1.models.Article
+import com.example.androidstudyjam1.utils.ToastAndSnackbarExtFunctions.makeLongToast
 import com.example.androidstudyjam1.utils.ToastAndSnackbarExtFunctions.makeShortToast
+import kotlinx.coroutines.flow.collect
 
 class LatestNewsFragment : Fragment(R.layout.latest_news_fragment) {
     private lateinit var adapter: NewsRecyclerViewAdapter
@@ -37,35 +39,40 @@ class LatestNewsFragment : Fragment(R.layout.latest_news_fragment) {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
         }
-        val list = listOf(
-            Article(
-                author = "First Author",
-                content = "Some lorem Ipsum for you.",
-                description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-                publishedAt = "Today",
-                title = "First News",
-                url = "www.google.com",
-                urlToImage = ""
-            ),
-            Article(
-                author = "Second Author",
-                content = "Some lorem Ipsum for you.2",
-                description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-                publishedAt = "Today",
-                title = "Second News",
-                url = "www.yahoo.com",
-                urlToImage = ""
-            ),
-            Article(
-                author = "Third Author",
-                content = "Some lorem Ipsum for you.",
-                description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-                publishedAt = "Today",
-                title = "Third News",
-                url = "www.reddit.com",
-                urlToImage = ""
-            ),
-        )
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.getLatestNews()
+        }
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.event.collect {
+                when (it) {
+                    is ActivityViewModel.Event.ErrorResponse -> {
+                        makeLongToast(it.message)
+                        (activity as MainActivity).hideNoInternetRibbon()
+                        binding.swipeRefresh.isRefreshing = false
+
+                    }
+                    ActivityViewModel.Event.UnknownError -> {
+                        (activity as MainActivity).hideNoInternetRibbon()
+                        makeShortToast("UnknownError")
+                        binding.swipeRefresh.isRefreshing = false
+
+                    }
+                    ActivityViewModel.Event.Loading -> {
+                        (activity as MainActivity).hideNoInternetRibbon()
+                        binding.swipeRefresh.isRefreshing = true
+                    }
+                    ActivityViewModel.Event.InternetError -> {
+                        (activity as MainActivity).showNoInternetRibbon()
+                        binding.swipeRefresh.isRefreshing = false
+                    }
+                    ActivityViewModel.Event.NoError -> {
+                        (activity as MainActivity).hideNoInternetRibbon()
+                        binding.swipeRefresh.isRefreshing = false
+                    }
+                }
+            }
+        }
+
         binding.bottomAppBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.settings -> {

@@ -21,10 +21,10 @@ class NewsRecyclerViewAdapter(private val onClick: (Article) -> Unit) :
             binding.root.setOnClickListener {
                 onClick(article)
             }
-            binding.image.apply {
-                load(article.urlToImage)
-
-            }
+//            binding.image.apply {
+//                load(article.urlToImage)
+//
+//            }
         }
     }
 
