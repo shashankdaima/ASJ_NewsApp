@@ -60,7 +60,9 @@ class LatestNewsFragment : Fragment(R.layout.latest_news_fragment) {
             }
 
         }
-
+        binding.fabButton.setOnClickListener {
+            findNavController().navigate(LatestNewsFragmentDirections.actionLatestNewsFragmentToSavedNewsFragment())
+        }
         binding.bottomAppBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.settings -> {

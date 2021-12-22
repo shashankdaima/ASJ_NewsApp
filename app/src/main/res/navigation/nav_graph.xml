@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_latestNewsFragment_to_webviewFragment"
             app:destination="@id/webviewFragment" />
+        <action
+            android:id="@+id/action_latestNewsFragment_to_savedNewsFragment"
+            app:destination="@id/savedNewsFragment" />
     </fragment>
     <fragment
         android:id="@+id/webviewFragment"
@@ -21,5 +24,17 @@
         <argument
             android:name="article"
             app:argType="com.example.androidstudyjam1.models.Article" />
+        <argument
+            android:name="isArticleSaved"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/savedNewsFragment"
+        android:name="com.example.androidstudyjam1.ui.saved_news.SavedNewsFragment"
+        android:label="SavedNewsFragment" >
+        <action
+            android:id="@+id/action_savedNewsFragment_to_webviewFragment"
+            app:destination="@id/webviewFragment" />
     </fragment>
 </navigation>
