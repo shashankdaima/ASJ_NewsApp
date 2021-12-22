@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 class LatestNewsViewModel : ViewModel() {
     private val repository = Repository
 
-    private val _query = MutableStateFlow<String?>("Modi")
+    private val _query = MutableStateFlow<String?>(null)
     val query: StateFlow<String?>
         get() = _query
 
@@ -33,6 +33,7 @@ class LatestNewsViewModel : ViewModel() {
     @OptIn(ExperimentalCoroutinesApi::class)
     val newsArticles = query.flatMapLatest {
         repository.getSearchResults(it)
+
     }
 
     fun getLatestNews() {

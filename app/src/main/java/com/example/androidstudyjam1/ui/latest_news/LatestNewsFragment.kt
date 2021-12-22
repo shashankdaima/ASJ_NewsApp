@@ -1,9 +1,11 @@
 package com.example.androidstudyjam1.ui.latest_news
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -16,13 +18,14 @@ import com.example.androidstudyjam1.ui.ActivityViewModel
 import com.example.androidstudyjam1.ui.MainActivity
 import com.example.androidstudyjam1.ui.adapters.NewsLoadStateAdapter
 import com.example.androidstudyjam1.ui.adapters.NewsRecyclerViewPagingAdapter
-import com.example.androidstudyjam1.utils.ToastAndSnackbarExtFunctions.makeLongToast
 import com.example.androidstudyjam1.utils.ToastAndSnackbarExtFunctions.makeShortToast
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 
 class LatestNewsFragment : Fragment(R.layout.latest_news_fragment) {
     private lateinit var adapter: NewsRecyclerViewPagingAdapter
     private lateinit var binding: LatestNewsFragmentBinding
+    private lateinit var searchView: SearchView
+
     private val viewModel by viewModels<LatestNewsViewModel>()
     private val activityViewModel by activityViewModels<ActivityViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,41 +49,16 @@ class LatestNewsFragment : Fragment(R.layout.latest_news_fragment) {
             setHasFixedSize(true)
         }
         binding.swipeRefresh.setOnRefreshListener {
-            viewModel.getLatestNews()
+            viewModel.changeQuery(null)
+            Handler().postDelayed({
+                binding.swipeRefresh.isRefreshing = false
+            }, 300)
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.newsArticles.collect {
+            viewModel.newsArticles.collectLatest {
                 adapter.submitData(it)
             }
-            viewModel.event.collect {
-                when (it) {
-                    is LatestNewsViewModel.Event.ErrorResponse -> {
-                        makeLongToast(it.message)
-                        activityViewModel.setNetworkStatus(false)
-                        binding.swipeRefresh.isRefreshing = false
 
-                    }
-                    LatestNewsViewModel.Event.UnknownError -> {
-
-                        activityViewModel.setNetworkStatus(false)
-                        makeShortToast("UnknownError")
-                        binding.swipeRefresh.isRefreshing = false
-
-                    }
-                    LatestNewsViewModel.Event.Loading -> {
-                        activityViewModel.setNetworkStatus(false)
-                        binding.swipeRefresh.isRefreshing = true
-                    }
-                    LatestNewsViewModel.Event.InternetError -> {
-                        activityViewModel.setNetworkStatus(true)
-                        binding.swipeRefresh.isRefreshing = false
-                    }
-                    LatestNewsViewModel.Event.NoError -> {
-                        activityViewModel.setNetworkStatus(false)
-                        binding.swipeRefresh.isRefreshing = false
-                    }
-                }
-            }
         }
 
         binding.bottomAppBar.setOnMenuItemClickListener {
@@ -106,5 +84,29 @@ class LatestNewsFragment : Fragment(R.layout.latest_news_fragment) {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.top_app_bar_menu, menu)
+
+        val searchItem = menu.findItem(R.id.search)
+        searchView = searchItem.actionView as SearchView
+
+//        val pendingQuery = viewModel.query.value
+//        if (pendingQuery != null && pendingQuery.isNotEmpty()) {
+//            searchItem.expandActionView()
+//            searchView.setQuery(pendingQuery, false)
+//        }
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                viewModel.changeQuery(query)
+                return true
+
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return true
+            }
+
+        })
+
+
     }
 }
