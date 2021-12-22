@@ -14,6 +14,7 @@ import com.example.androidstudyjam1.R
 import com.example.androidstudyjam1.databinding.LatestNewsFragmentBinding
 import com.example.androidstudyjam1.ui.ActivityViewModel
 import com.example.androidstudyjam1.ui.MainActivity
+import com.example.androidstudyjam1.ui.adapters.NewsLoadStateAdapter
 import com.example.androidstudyjam1.ui.adapters.NewsRecyclerViewPagingAdapter
 import com.example.androidstudyjam1.utils.ToastAndSnackbarExtFunctions.makeLongToast
 import com.example.androidstudyjam1.utils.ToastAndSnackbarExtFunctions.makeShortToast
@@ -36,12 +37,11 @@ class LatestNewsFragment : Fragment(R.layout.latest_news_fragment) {
                 )
             )
         }
-//        viewModel.list.observe(viewLifecycleOwner) {
-//            adapter.submitList(it.articles)
-//        }
-//
         binding.allNewRecyclerView.apply {
-            adapter = this@LatestNewsFragment.adapter
+            adapter = this@LatestNewsFragment.adapter.withLoadStateHeaderAndFooter(
+                header = NewsLoadStateAdapter { this@LatestNewsFragment.adapter.retry() },
+                footer = NewsLoadStateAdapter { this@LatestNewsFragment.adapter.retry() },
+            )
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
         }

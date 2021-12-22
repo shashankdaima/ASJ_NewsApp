@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androidstudyjam1.repository.Repository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,7 +15,7 @@ import kotlinx.coroutines.launch
 class LatestNewsViewModel : ViewModel() {
     private val repository = Repository
 
-    private val _query = MutableStateFlow<String?>(null)
+    private val _query = MutableStateFlow<String?>("Modi")
     val query: StateFlow<String?>
         get() = _query
 
@@ -29,6 +30,7 @@ class LatestNewsViewModel : ViewModel() {
         _query.value = newQuery
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     val newsArticles = query.flatMapLatest {
         repository.getSearchResults(it)
     }
