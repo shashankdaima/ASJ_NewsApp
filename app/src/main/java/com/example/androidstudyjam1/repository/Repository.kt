@@ -1,10 +1,22 @@
 package com.example.androidstudyjam1.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import com.example.androidstudyjam1.network.Retrofit
-import com.example.androidstudyjam1.utils.safeApiCall
-import kotlinx.coroutines.Dispatchers
 
 object Repository {
     val newsApi by lazy { Retrofit.newsApi }
-    suspend fun getAllNews() = safeApiCall(Dispatchers.IO) { newsApi.getLatestNews() }
+
+    //    suspend fun getAllNews() = safeApiCall(Dispatchers.IO) { newsApi.getLatestNews(1) }
+    fun getSearchResults(query: String? = null) =
+        Pager(
+            config = PagingConfig(
+                pageSize = NETWORK_PAGE_SIZE,
+                maxSize = 40,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { GetNewsPagingSource(newsApi, query) }
+        ).flow
+
+    const val NETWORK_PAGE_SIZE = 10
 }

@@ -2,14 +2,14 @@ package com.example.androidstudyjam1.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidstudyjam1.databinding.NewsRecyclerviewElementBinding
 import com.example.androidstudyjam1.models.Article
 
-class NewsRecyclerViewAdapter(private val onClick: (Article) -> Unit) :
-    ListAdapter<Article, NewsRecyclerViewAdapter.ViewHolder>(NewsDiffUtilComparator) {
-    inner class ViewHolder(val binding: NewsRecyclerviewElementBinding) :
+class NewsRecyclerViewPagingAdapter(val onClick: (Article) -> Unit) :
+    PagingDataAdapter<Article, NewsRecyclerViewPagingAdapter.ViewHolder>(NewsDiffUtilComparator) {
+    inner class ViewHolder(private val binding: NewsRecyclerviewElementBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(article: Article) {
             binding.time.text = article.publishedAt
@@ -18,12 +18,13 @@ class NewsRecyclerViewAdapter(private val onClick: (Article) -> Unit) :
             binding.root.setOnClickListener {
                 onClick(article)
             }
-
         }
     }
 
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): NewsRecyclerViewPagingAdapter.ViewHolder {
         val binding =
             NewsRecyclerviewElementBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -39,5 +40,6 @@ class NewsRecyclerViewAdapter(private val onClick: (Article) -> Unit) :
             holder.bind(item)
         }
     }
+
 
 }

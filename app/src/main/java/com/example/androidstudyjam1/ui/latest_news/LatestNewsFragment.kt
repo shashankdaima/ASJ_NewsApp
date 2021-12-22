@@ -14,13 +14,13 @@ import com.example.androidstudyjam1.R
 import com.example.androidstudyjam1.databinding.LatestNewsFragmentBinding
 import com.example.androidstudyjam1.ui.ActivityViewModel
 import com.example.androidstudyjam1.ui.MainActivity
-import com.example.androidstudyjam1.ui.adapters.NewsRecyclerViewAdapter
+import com.example.androidstudyjam1.ui.adapters.NewsRecyclerViewPagingAdapter
 import com.example.androidstudyjam1.utils.ToastAndSnackbarExtFunctions.makeLongToast
 import com.example.androidstudyjam1.utils.ToastAndSnackbarExtFunctions.makeShortToast
 import kotlinx.coroutines.flow.collect
 
 class LatestNewsFragment : Fragment(R.layout.latest_news_fragment) {
-    private lateinit var adapter: NewsRecyclerViewAdapter
+    private lateinit var adapter: NewsRecyclerViewPagingAdapter
     private lateinit var binding: LatestNewsFragmentBinding
     private val viewModel by viewModels<LatestNewsViewModel>()
     private val activityViewModel by activityViewModels<ActivityViewModel>()
@@ -29,16 +29,17 @@ class LatestNewsFragment : Fragment(R.layout.latest_news_fragment) {
         binding = LatestNewsFragmentBinding.bind(view)
         setHasOptionsMenu(true)
         (activity as MainActivity).supportActionBar?.subtitle = null
-        adapter = NewsRecyclerViewAdapter {
+        adapter = NewsRecyclerViewPagingAdapter {
             findNavController().navigate(
                 LatestNewsFragmentDirections.actionLatestNewsFragmentToWebviewFragment(
                     it
                 )
             )
         }
-        viewModel.list.observe(viewLifecycleOwner) {
-            adapter.submitList(it.articles)
-        }
+//        viewModel.list.observe(viewLifecycleOwner) {
+//            adapter.submitList(it.articles)
+//        }
+//
         binding.allNewRecyclerView.apply {
             adapter = this@LatestNewsFragment.adapter
             layoutManager = LinearLayoutManager(requireContext())
@@ -48,6 +49,9 @@ class LatestNewsFragment : Fragment(R.layout.latest_news_fragment) {
             viewModel.getLatestNews()
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.newsArticles.collect {
+                adapter.submitData(it)
+            }
             viewModel.event.collect {
                 when (it) {
                     is LatestNewsViewModel.Event.ErrorResponse -> {

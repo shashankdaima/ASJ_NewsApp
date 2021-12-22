@@ -59,5 +59,8 @@ dependencies {
     // LifeCycle LiveData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.0"
 
+    //Coil Image Loading Library
     implementation("io.coil-kt:coil:1.4.0")
+    //Paging3
+    implementation "androidx.paging:paging-runtime-ktx:3.1.0"
 }
