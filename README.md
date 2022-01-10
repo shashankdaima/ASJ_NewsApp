@@ -7,8 +7,9 @@ Proposed Solution :
 We have developed a news-fetching app using simple and basic UI, so that everyone can understand and use it easily. Its features include saving new news along with a description given by multiple news websites. Once you are done reading it, it can be deleted to remove it from the application. All news are shown on the main screen and we can scroll through to find our required news page.
 
 ### **Screenshots:**
-
-           
+<img src="https://github.com/shashankdaima/ASJ_NewsApp/blob/master/latest_news.jpeg" alt="Latest News" width =250px>
+<img src="https://github.com/shashankdaima/ASJ_NewsApp/blob/master/saved_news.jpeg" alt="Saved news Screen" width =250px>
+<img src="https://github.com/shashankdaima/ASJ_NewsApp/blob/master/delete_new_with_snackbar.jpeg" alt="Web view" width =250px>
 
 ### **Functionality & Concepts used:**
 1.	LiveData and Kotlin Flows
