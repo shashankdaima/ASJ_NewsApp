@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.androidstudyjam1.models.Article
 
-@Database(entities = [Article::class], version = 1)
+@Database(entities = [Article::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun getSavedNewsDao(): SavedNewsDao
 
@@ -24,6 +24,6 @@ abstract class AppDatabase : RoomDatabase() {
                 context.applicationContext,
                 AppDatabase::class.java,
                 "app_database"
-            ).build()
+            ).fallbackToDestructiveMigration().build()
     }
 }

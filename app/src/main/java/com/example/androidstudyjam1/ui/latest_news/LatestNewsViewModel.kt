@@ -22,9 +22,6 @@ class LatestNewsViewModel : ViewModel() {
     private val _eventChannel = Channel<Event>()
     val event = _eventChannel.receiveAsFlow()
 
-    init {
-        getLatestNews()
-    }
 
     fun changeQuery(newQuery: String?) {
         _query.value = newQuery
@@ -36,30 +33,7 @@ class LatestNewsViewModel : ViewModel() {
 
     }
 
-    fun getLatestNews() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _eventChannel.send(Event.Loading)
-//            when (val response = repository.getSearchResults()) {
-//                is NetworkResponse.GenericError -> {
-//                    if (response.error != null) {
-//                        _eventChannel.send(Event.ErrorResponse(response.error.message))
-//                    } else {
-//                        _eventChannel.send(Event.UnknownError)
-//                    }
-//                }
-//                NetworkResponse.NetworkError -> {
-//                    _eventChannel.send(Event.InternetError)
-//                }
-//                is NetworkResponse.Success -> {
-//                    _eventChannel.send(Event.NoError)
-//                    response.value.let {
-//                        _list.postValue(it)
-//                    }
-//                }
-//            }
 
-        }
-    }
 
     sealed class Event {
         object Loading : Event()
