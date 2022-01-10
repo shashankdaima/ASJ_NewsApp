@@ -25,7 +25,7 @@ The App has a very simple and interactive interface which helps the users effici
 *	LiveData & Room Database : New saved news can be added to the application an any instant. LiveData is used to update and observe any changes made in the news articles, and update it to local databases using Room. 
 
 ### **Application Link & Future Scope:**
-The app is currently in the Alpha testing phase with limited number of users. Access to the app : 
+The app is currently in the Alpha testing phase with limited number of users. Access to the app : https://github.com/shashankdaima/ASJ_NewsApp/tree/master
 
 Once the app is fully tested and functional  with the existing feature, we are planning to modify the application and add more features like: 
 * Using work manager we are make a api calls and notify user about latest news. This help them to get reminded about check news on daily basis. 
